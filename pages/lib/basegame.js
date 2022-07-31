@@ -1,34 +1,24 @@
 
-export default class OfflineGame {
+export default class BaseGame {
 
     constructor(imagePath) {
         this.sprites = []
+        this.images = []
         this.events = []
         this.keys = []
+        this.layers = []
 
-        this.canvas = document.getElementById("_gamecanvas")
-        this.context = this.canvas.getContext("2d")
-        this.context.scale(4, 4)
-        this.context.imageSmoothingEnabled = false
         this.imagePath = imagePath
-
         this.start = this.start.bind(this)
         this.step = this.step.bind(this)
         this.draw = this.draw.bind(this)
         this.wait = this.wait.bind(this)
 
-        let self = this
         window.addEventListener('keypress', (event) => {
-            let key = self.keys.find(key => key.id === event.key);
-            if (key != undefined) {
-                key.held = true
-            }
+            this.setKey(event.key, true)
         })
         window.addEventListener('keyup', (event) => {
-            let key = self.keys.find(key => key.id === event.key);
-            if (key != undefined) {
-                key.held = false
-            }
+            this.setKey(event.key, false)
         })
     }
 
@@ -67,12 +57,31 @@ export default class OfflineGame {
     }
 
     addSprite(sprite) {
+        let image = new Image()
+        let file = sprite.image + '.png'
+        image.src = file
         console.log("Created sprite: " + JSON.stringify(sprite))
-        return this.sprites.push(sprite)
+        if (this.images.find(image => image.src === file) !== undefined) {
+            this.images.push(image)
+            console.log("Created image: " + JSON.stringify(image))
+        }
+        return this.sprite.push(sprite)
     }
 
     addEvent(event) {
         this.events.push(event)
+    }
+
+    addCanvas(id, type) {
+        let canvas = document.getElementById(id)
+        let context = canvas.getContext("2d").scale(4, 4)
+        context.imageSmoothingEnabled = false
+        this.layers.push({
+            elements: [],
+            canvas: canvas,
+            context: context,
+            type: type
+        })
     }
 
     addKey(key, event) {
@@ -81,6 +90,13 @@ export default class OfflineGame {
             event: event,
             held: false
         })
+    }
+
+    setKey(event, state) {
+        let key = this.keys.find(key => key.id === event.key);
+        if (key != undefined) {
+            key.held = state
+        }
     }
 
 }

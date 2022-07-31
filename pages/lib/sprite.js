@@ -3,14 +3,10 @@ import Lerp from 'lerp'
 const short = require('short-uuid')
 const translator = short()
 
-export default class BaseSprite {
+export default class Sprite {
 
     constructor(id = null, x, y, img, speed = 1) {
-        if (id === null) {
-            this.id = translator.new()
-        } else {
-            this.id = id
-        }
+        this.id = id
         this.x = x
         this.y = y
         this.px = x

@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import { Container } from "react-bootstrap"
 
 import Canvas from "./components/canvas"
 import OnlineGame from "./lib/onlinegame"
@@ -41,7 +42,9 @@ export default function Index() {
 
 	return (
 		<>
-			<Canvas width={640} height={360} />
+			<Container>
+				<Canvas width={640} height={360} style={{ border: '2px solid black', borderRadius: '12px' }} />
+			</Container>
 		</>
 	)
 }

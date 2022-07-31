@@ -1,8 +1,8 @@
-import OfflineGame from './offlinegame'
+import BaseGame from './basegame'
 import IO from "socket.io-client"
 import Sprite from './sprite'
 
-export default class OnlineGame extends OfflineGame {
+export default class OnlineGame extends BaseGame {
 
     constructor(imagePath) {
         super(imagePath)

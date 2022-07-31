@@ -1,8 +1,8 @@
 
 export default function Canvas(props) {
     return (
-        <canvas id="_gamecanvas" width={props.width} height={props.height}>
-
-        </canvas>
+        <div style={{ position: 'relative', ...props.style }}>
+            <canvas id="_gamecanvas" width={props.width} height={props.height} />
+        </div>
     )
 }
